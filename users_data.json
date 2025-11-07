@@ -1,0 +1,83 @@
+{
+  "suyash1212": {
+    "password": "2da8ab4089436fbd1fde97acccd610f5d0ec17c8bb998b38230fd4ea43ac4bd4",
+    "full_name": "Suyash Gupta",
+    "email": "guptasuyash1981@gmail.com",
+    "student_id": "Suyash1212",
+    "role": "student",
+    "created_at": "2025-09-17T23:00:24.467819",
+    "last_login": null
+  },
+  "suyashyash": {
+    "password": "bf532f520bf5a6cbb22a1c253eec9dea6c4e9641a8892fe430a8685811a3c4de",
+    "full_name": "Suyash ",
+    "email": "guptasuyash1981@gmail.com",
+    "student_id": "Suyash",
+    "role": "student",
+    "created_at": "2025-09-17T23:01:31.686794",
+    "last_login": "2025-09-17T23:02:07.638435"
+  },
+  "pagloogloo": {
+    "password": "57f3c7445f76f6774cec7ae5fb3d24488476243ebc7af543f79cc2b4b69c99e7",
+    "full_name": "Pagloo",
+    "email": "abcd@gmail.com",
+    "student_id": "pagloo",
+    "role": "student",
+    "created_at": "2025-09-17T23:17:44.378756",
+    "last_login": "2025-09-17T23:41:10.152898"
+  },
+  "vanshi1212": {
+    "password": "3fb04d4270a979afc26e575083f1399a48f52d00dfe83a1b989cf14b48f1da21",
+    "full_name": "vanshika",
+    "email": "vanshi@gmail.com",
+    "student_id": "121212",
+    "role": "teacher",
+    "created_at": "2025-09-17T23:29:55.809911",
+    "last_login": "2025-09-17T23:40:03.211040"
+  },
+  "vishal1313": {
+    "password": "f5bca2cc7649e3e07bd562186b66717a97c547f1dc437a534310f38e247176d9",
+    "full_name": "vishal",
+    "email": "vishu@gmail.com",
+    "student_id": "131313",
+    "role": "counselor",
+    "created_at": "2025-09-17T23:42:39.714289",
+    "last_login": "2025-09-17T23:46:55.011685"
+  },
+  "roshanhani": {
+    "password": "733ce05bf324eaba2d142bd1202e1a131a4a0fd5e134eb840a5a8e9e4b6a126f",
+    "full_name": "roshani",
+    "email": "roshani06@gmail.com",
+    "student_id": "roshani",
+    "role": "teacher",
+    "created_at": "2025-09-18T10:18:59.409419",
+    "last_login": null
+  },
+  "michel12": {
+    "password": "e03334ebb3958f2e57369abb028cec45c035a0d30540778b50613a998860c7a6",
+    "full_name": "michel",
+    "email": "mm@gmail.com",
+    "student_id": "12",
+    "role": "teacher",
+    "created_at": "2025-09-18T10:20:27.141658",
+    "last_login": "2025-11-07T05:30:24.141937"
+  },
+  "mkmk": {
+    "password": "c56b5f47d17eea395b5f70fb83c907e2bf5b4b64983e1faab2ccfc1e578c2683",
+    "full_name": "mk",
+    "email": "mm@gmail.com",
+    "student_id": "mk",
+    "role": "counselor",
+    "created_at": "2025-09-18T10:22:50.986790",
+    "last_login": "2025-09-18T10:23:04.838309"
+  },
+  "vanshi2121": {
+    "password": "3e52393ed0ba12bf2dc54da5033e011064ee506256bde705e87cdc4a42e83794",
+    "full_name": "vanshiq",
+    "email": "vanshia@gmail.com",
+    "student_id": "12121",
+    "role": "student",
+    "created_at": "2025-09-18T11:06:05.191171",
+    "last_login": "2025-09-18T11:21:50.577348"
+  }
+}
