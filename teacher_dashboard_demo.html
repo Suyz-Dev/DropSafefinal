@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DropSafe - Teacher Dashboard Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .high-risk { color: #e74c3c; }
+        .medium-risk { color: #f39c12; }
+        .safe { color: #27ae60; }
+        .total { color: #3498db; }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .upload-area {
+            border: 3px dashed #3498db;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            background: #ecf0f1;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            background: #d5dbdb;
+            border-color: #2980b9;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60, #229954);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .student-table th {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .student-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .student-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .risk-badge {
+            padding: 5px 12px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .risk-high { background: #e74c3c; }
+        .risk-medium { background: #f39c12; }
+        .risk-safe { background: #27ae60; }
+        
+        .chart-placeholder {
+            background: #ecf0f1;
+            height: 300px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+        
+        .demo-note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👨‍🏫 DropSafe - Teacher Dashboard</h1>
+            <p>Identify at-risk students and take proactive measures</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number total">20</div>
+                <div>Total Students</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number high-risk">3</div>
+                <div>🔴 High Risk</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number medium-risk">5</div>
+                <div>🟠 Medium Risk</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number safe">12</div>
+                <div>🟢 Safe</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="demo-note">
+                <strong>📝 Demo Mode:</strong> This is a static demo of the DropSafe teacher dashboard. 
+                To use the full interactive version with ML predictions and CSV upload, install Python and run: 
+                <code>streamlit run teacher_dashboard.py</code>
+            </div>
+            
+            <div class="section">
+                <h2>📁 Upload Student Data</h2>
+                <div class="upload-area">
+                    <h3>📊 CSV File Upload</h3>
+                    <p>Upload CSV with columns: student_id, name, attendance_percentage, marks_percentage, fees_status</p>
+                    <button class="btn">Choose File</button>
+                    <button class="btn btn-success" onclick="loadSampleData()">🎲 Use Sample Data</button>
+                </div>
+            </div>
+            
+            <div class="grid-2">
+                <div class="section">
+                    <h2>📊 Risk Distribution</h2>
+                    <div class="chart-placeholder">
+                        📈 Interactive Chart Available in Full Version
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>📈 Performance Analysis</h2>
+                    <div class="chart-placeholder">
+                        📊 Attendance vs Marks Scatter Plot
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>👥 Student List</h2>
+                <div style="margin-bottom: 20px;">
+                    <button class="btn btn-danger">📥 Download High Risk Students</button>
+                    <button class="btn">📊 Download All Data</button>
+                    <button class="btn btn-warning">🔄 Refresh Analysis</button>
+                </div>
+                
+                <table class="student-table" id="studentTable">
+                    <thead>
+                        <tr>
+                            <th>Risk</th>
+                            <th>Name</th>
+                            <th>Student ID</th>
+                            <th>Attendance %</th>
+                            <th>Marks %</th>
+                            <th>Fees Status</th>
+                            <th>Risk Level</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTableBody">
+                        <!-- Sample data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="section">
+                <h2>📋 Quick Summary</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number high-risk">3</div>
+                        <div>🚨 Immediate Attention Needed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number medium-risk">4</div>
+                        <div>📉 Low Attendance (<75%)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number total">3</div>
+                        <div>💰 Pending Fees</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number high-risk">2</div>
+                        <div>📊 Low Marks (<60%)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample student data
+        const sampleStudents = [
+            {risk: '🔴', name: 'Amit Kumar', id: 'STU003', attendance: 65.2, marks: 45.8, fees: 'pending', level: 'High Risk'},
+            {risk: '🔴', name: 'Rohan Gupta', id: 'STU005', attendance: 45.8, marks: 38.2, fees: 'pending', level: 'High Risk'},
+            {risk: '🔴', name: 'Karan Singh', id: 'STU013', attendance: 38.5, marks: 28.7, fees: 'pending', level: 'High Risk'},
+            {risk: '🟠', name: 'Ananya Das', id: 'STU008', attendance: 55.2, marks: 42.1, fees: 'pending', level: 'Medium Risk'},
+            {risk: '🟠', name: 'Riya Agarwal', id: 'STU010', attendance: 68.8, marks: 58.9, fees: 'paid', level: 'Medium Risk'},
+            {risk: '🟠', name: 'Harsh Patel', id: 'STU015', attendance: 61.2, marks: 55.8, fees: 'pending', level: 'Medium Risk'},
+            {risk: '🟠', name: 'Shreya Jain', id: 'STU018', attendance: 52.1, marks: 46.7, fees: 'pending', level: 'Medium Risk'},
+            {risk: '🟠', name: 'Arjun Mehta', id: 'STU007', attendance: 72.5, marks: 65.4, fees: 'paid', level: 'Medium Risk'},
+            {risk: '🟢', name: 'Rahul Sharma', id: 'STU001', attendance: 85.5, marks: 78.2, fees: 'paid', level: 'Safe'},
+            {risk: '🟢', name: 'Priya Patel', id: 'STU002', attendance: 92.0, marks: 88.5, fees: 'paid', level: 'Safe'},
+            {risk: '🟢', name: 'Sneha Singh', id: 'STU004', attendance: 78.5, marks: 72.1, fees: 'paid', level: 'Safe'},
+            {risk: '🟢', name: 'Kavya Reddy', id: 'STU006', attendance: 89.2, marks: 85.7, fees: 'paid', level: 'Safe'},
+            {risk: '🟢', name: 'Vikram Joshi', id: 'STU009', attendance: 95.5, marks: 92.3, fees: 'paid', level: 'Safe'},
+            {risk: '🟢', name: 'Aditya Verma', id: 'STU011', attendance: 82.1, marks: 75.6, fees: 'paid', level: 'Safe'},
+            {risk: '🟢', name: 'Pooja Nair', id: 'STU012', attendance: 76.5, marks: 68.2, fees: 'paid', level: 'Safe'},
+            {risk: '🟢', name: 'Divya Sharma', id: 'STU014', attendance: 88.9, marks: 82.4, fees: 'paid', level: 'Safe'},
+            {risk: '🟢', name: 'Meera Gupta', id: 'STU016', attendance: 93.5, marks: 89.1, fees: 'paid', level: 'Safe'},
+            {risk: '🟢', name: 'Nikhil Kumar', id: 'STU017', attendance: 74.8, marks: 69.3, fees: 'paid', level: 'Safe'},
+            {risk: '🟢', name: 'Aman Verma', id: 'STU019', attendance: 87.2, marks: 81.5, fees: 'paid', level: 'Safe'},
+            {risk: '🟢', name: 'Tanya Singh', id: 'STU020', attendance: 79.8, marks: 73.2, fees: 'paid', level: 'Safe'}
+        ];
+
+        function loadSampleData() {
+            const tableBody = document.getElementById('studentTableBody');
+            tableBody.innerHTML = '';
+            
+            sampleStudents.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.risk}</td>
+                    <td>${student.name}</td>
+                    <td>${student.id}</td>
+                    <td>${student.attendance}%</td>
+                    <td>${student.marks}%</td>
+                    <td>${student.fees}</td>
+                    <td><span class="risk-badge risk-${student.level.toLowerCase().replace(' ', '-')}">${student.level}</span></td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            alert('✅ Sample data loaded successfully! You can see 20 students with their risk assessments.');
+        }
+
+        // Load sample data on page load
+        window.onload = function() {
+            loadSampleData();
+        };
+    </script>
+</body>
+</html>
